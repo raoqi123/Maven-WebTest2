@@ -2,6 +2,10 @@ package rq;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import proxy.UserDAO;
+import proxy.UserDAOFactory;
+import proxy.UserDAOFactory2;
+import proxy.UserDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +31,14 @@ public class HelloServlet extends HttpServlet {
 
         Person person = (Person)applicationContext.getBean("person") ;
         response.getWriter().write(person.toString());
+
+        UserDAO userDAO1 = (UserDAO) UserDAOFactory.getProxyInstance(new UserDAOImpl());
+        userDAO1.hello();
+
+
+        UserDAOFactory2 factory = new UserDAOFactory2(new UserDAOImpl());
+        UserDAO userDAO2 = (UserDAO) factory.getProxyInstance();
+        userDAO2.hello();
 
     }
 }
