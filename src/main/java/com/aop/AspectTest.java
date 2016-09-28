@@ -1,24 +1,34 @@
+package com.aop;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.rq.Person;
 
 import javax.annotation.Resource;
 
 /**
- * Created by raoqi on 16/9/25.
+ * Created by raoqi on 16/9/28.
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-public class TestDemo {
+public class AspectTest {
 
     @Resource
-    private Person person;
+    private ManDAO manDAO;
+
+    @Resource
+    private WomanShow womanShow;
 
     @Test
     public void test(){
-        System.out.println(this.person);
+
+        womanShow.get();
+
+
+        System.out.println("测试完毕");
     }
+
 
 }
